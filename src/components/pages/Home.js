@@ -166,17 +166,35 @@ function Home() {
   return (
     <div className="Home">
       <div className="home-title-wrapper">
-        <div className="home-title" style={{ position: "relative" }}>
+        <motion.div
+          className="home-title"
+          style={{ position: "relative" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
           <h1 style={{ fontWeight: "bold" }}>
-            <span className="glitter-text">Generate Sales Proposal</span>
+            <motion.span
+              className="glitter-text"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 1 }}
+            >
+              Generate Sales Proposal
+            </motion.span>
           </h1>
-        </div>
-        <div className="home-title-desc">
+        </motion.div>
+        <motion.div
+          className="home-title-desc"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+        >
           <p>
             Format your sales proposal to your liking. Paste in simplified
             messages and our Generative AI will output your desired proposal!
           </p>
-        </div>
+        </motion.div>
       </div>
       <Slider {...sliderSettings}>
         <div className="slider-container">

@@ -5,7 +5,6 @@ import CopyToClipboardButton from "./CopyToClipboardButton";
 import DownloadButton from "./DownloadButton";
 import "./ResultButtonsWrapper.css";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Menu } from "@mui/base";
 
 const ResultButtonsWrapper = ({
   executiveSummary,
