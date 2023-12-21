@@ -1,8 +1,7 @@
 import { useState } from "react";
-import CircularIndeterminate from "./Circular";
+import CircularIndeterminate from "../Circular";
 import React from "react";
-import { Link } from "react-router-dom";
-
+import "./Pitch.css";
 function Pitch() {
   const API_KEY = "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";
   const [text, setText] = useState("");
@@ -40,6 +39,19 @@ function Pitch() {
 
   return (
     <div className="pitch-container">
+      <div className="pitch-title-wrapper">
+        <div className="pitch-title" style={{ position: "relative" }}>
+          <h1 style={{ fontWeight: "bold" }}>
+            <span className="glitter-text">Generate Sales Pitch</span>
+          </h1>
+        </div>
+        <div className="pitch-title-desc">
+          <p>
+            Generate an elavator pitch for any situation. Type in some keywords
+            (ie product name, description etc) and you're good to go!
+          </p>
+        </div>
+      </div>
       <div className="wrapper">
         <div className="pitch-word-count">
           {/* Modify html textarea for word count */}
@@ -63,10 +75,6 @@ function Pitch() {
           )}
         </div>
       </div>
-
-      <Link to="/">
-        <button>Link</button>
-      </Link>
     </div>
   );
 }
