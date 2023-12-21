@@ -1,13 +1,18 @@
 import { useState } from "react";
 import CircularIndeterminate from "../Circular";
+import { motion } from "framer-motion";
 import React from "react";
 import "./Pitch.css";
+import { API_KEY } from "../../API_KEY";
 function Pitch() {
-  const API_KEY = "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";
   const [text, setText] = useState("");
   const [pitch, setPitch] = useState("");
   const [load, setLoad] = useState(false);
   async function callOpenAIAPI() {
+    if (text.length == 0) {
+      setPitch("Input Something");
+      return;
+    }
     console.log("Calling the OpenAI API");
     setLoad(true);
     const APIBody = {
@@ -40,17 +45,35 @@ function Pitch() {
   return (
     <div className="pitch-container">
       <div className="pitch-title-wrapper">
-        <div className="pitch-title" style={{ position: "relative" }}>
+        <motion.div
+          className="pitch-title"
+          style={{ position: "relative" }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
           <h1 style={{ fontWeight: "bold" }}>
-            <span className="glitter-text">Generate Sales Pitch</span>
+            <motion.span
+              className="glitter-text"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 1 }}
+            >
+              Generate Sales Pitch
+            </motion.span>
           </h1>
-        </div>
-        <div className="pitch-title-desc">
+        </motion.div>
+        <motion.div
+          className="pitch-title-desc"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1, duration: 1 }}
+        >
           <p>
-            Generate an elavator pitch for any situation. Type in some keywords
-            (ie product name, description etc) and you're good to go!
+            Generate an elevator pitch for any situation. Type in some keywords
+            (i.e., product name, description, etc.), and you're good to go!
           </p>
-        </div>
+        </motion.div>
       </div>
       <div className="wrapper">
         <div className="pitch-word-count">

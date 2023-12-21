@@ -22,7 +22,7 @@ const ResultButtonsWrapper = ({
       <button onClick={toggleDisplay}>
         <MenuIcon />
         <br></br>
-        {isDisplayed ? "Hide Results" : "Show Results"}
+        Export Data
       </button>
       {isDisplayed && (
         <>
