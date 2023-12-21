@@ -3,9 +3,7 @@ import CircularIndeterminate from "./Circular";
 import "./Home.css";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-
-// Modify API_KEY accordingly
-const API_KEY = "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"; // secure -> environment variable
+import { API_KEY } from "../API_KEY";
 
 function Home() {
   const [businessName, setBusinessName] = useState("");
@@ -423,10 +421,10 @@ function Home() {
         >
           Copy to Clipboard
         </button>
-        <Link to="/pitch">
-          <button>Link</button>
-        </Link>
       </div>
+      <Link to="/pitch">
+        <button>Link</button>
+      </Link>
     </div>
   );
 }
