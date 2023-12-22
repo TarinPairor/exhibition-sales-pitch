@@ -33,7 +33,7 @@ function Home() {
 
   const sliderSettings = {
     dots: true,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -68,7 +68,6 @@ function Home() {
     return (
       executiveSummary +
       `
-    
     ${exFB}
     `
     );
@@ -88,7 +87,7 @@ function Home() {
     ) {
       return "";
     }
-    return `generate me a proposed solution ${solutionWordCount} words long for sales proposal that utilizes a product by the name of: "${solutionName}"
+    return `generate me a proposed solution ${solutionWordCount} words long for sales proposal that utilizes a solution by the name of: "${solutionName}"
       , include this information about the solution: "${solutionInfo}" and finally, include the following features as bullet points: "${solutionFeatures}"`;
   }
 
@@ -99,7 +98,8 @@ function Home() {
     return (
       proposedSolution +
       `
-    
+
+    Remake the above with the following feedback in mind.
     ${solutionFB}
     `
     );
@@ -114,7 +114,7 @@ function Home() {
     if (!solutionName && !solutionInfo && !priceInfo && !priceWordCount) {
       return "";
     }
-    return `generate me proper "pricing and budget" information ${priceWordCount} words long for sales proposal of the product by the name of: "${solutionName}"
+    return `generate me proper "pricing and budget" information ${priceWordCount} words long for sales proposal of the solution by the name of: "${solutionName}"
        including this information about the solution: "${solutionInfo}" and include the following pricing details of the product "${priceInfo}"`;
   }
 
@@ -125,7 +125,8 @@ function Home() {
     return (
       priceAndBudget +
       `
-    
+
+      Remake the above with the following feedback in mind.
     ${priceFB}
     `
     );
@@ -191,8 +192,19 @@ function Home() {
           transition={{ delay: 1, duration: 1 }}
         >
           <p>
-            Format your sales proposal to your liking. Paste in simplified
-            messages and our Generative AI will output your desired proposal!
+            Unlock the Power of Simplified Messages! 🚀 Are you ready to elevate
+            your sales game? Paste in your preferences, and watch our Generative
+            AI transform them into a compelling sales proposal that truly pops!
+            <br />
+            🌟 A sales proposal is more than a document; it's your strategic key
+            to success! 🎯 This formal presentation outlines your offerings,
+            addressing the client's unique needs with precision. Think of it as
+            your personalized roadmap to a mutually beneficial partnership.
+            <br />
+            In a world of complexity, simplicity speaks volumes! Our Generative
+            AI is here to turn your preferences into a vibrant sales pitch that
+            resonates. Say goodbye to bland proposals; say hello to a
+            persuasive, standout message!
           </p>
         </motion.div>
       </div>

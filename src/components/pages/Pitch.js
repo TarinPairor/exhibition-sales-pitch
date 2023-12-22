@@ -9,17 +9,28 @@ function Pitch() {
   const [pitch, setPitch] = useState("");
   const [load, setLoad] = useState(false);
   async function callOpenAIAPI() {
-    if (text.length == 0) {
+    if (text.length === 0) {
       setPitch("Input Something");
       return;
     }
+
+    function generatePitch() {
+      return `Generate a sales pitch script of a product utilizing the following information: ${text} 
+      
+      .Additionally, to construct this pitch, I want you to utilize these key components:
+      Identify the problem.
+      State your value proposition.
+      Offer solutions.
+      Show social proof.
+
+      `;
+    }
+
     console.log("Calling the OpenAI API");
     setLoad(true);
     const APIBody = {
       model: "text-davinci-003",
-      prompt:
-        "Generate a sales pitch of a product utilizing the following information:" +
-        text, // input prompt here, other variables do not matter
+      prompt: generatePitch(),
       temperature: 0,
       max_tokens: 400,
       top_p: 1.0,
@@ -70,17 +81,19 @@ function Pitch() {
           transition={{ delay: 1, duration: 1 }}
         >
           <p>
-            Generate an elevator pitch for any situation. Type in some keywords
-            (i.e., product name, description, etc.), and you're good to go!
+            Let's infuse some energy and enthusiasm into the elevator pitch.
+            Provide the keywords or a brief description of your product,
+            service, or idea? This will help me tailor the pitch to make it
+            truly stand out!
           </p>
         </motion.div>
       </div>
       <div className="wrapper">
-        <div className="pitch-word-count">
-          {/* Modify html textarea for word count */}
+        <div className="pitch-container">
+          {/* Modify html textarea for pitch */}
           <textarea
             onChange={(e) => setText(e.target.value)}
-            placeholder="Paste Pitch Info here! Be succinct"
+            placeholder="Paste Pitch Info here! Be succinct."
             cols={50}
             rows={10}
           />
