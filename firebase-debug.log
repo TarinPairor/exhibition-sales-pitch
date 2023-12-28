@@ -1,0 +1,17 @@
+[debug] [2023-12-28T08:42:46.269Z] ----------------------------------------------------------------------
+[debug] [2023-12-28T08:42:46.271Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --only hosting
+[debug] [2023-12-28T08:42:46.271Z] CLI Version:   12.4.7
+[debug] [2023-12-28T08:42:46.271Z] Platform:      darwin
+[debug] [2023-12-28T08:42:46.271Z] Node Version:  v18.12.1
+[debug] [2023-12-28T08:42:46.272Z] Time:          Thu Dec 28 2023 15:42:46 GMT+0700 (Indochina Time)
+[debug] [2023-12-28T08:42:46.272Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-12-28T08:42:46.323Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-12-28T08:42:46.323Z] > authorizing via signed-in user (bananra1040@gmail.com)
+[debug] [2023-12-28T08:42:46.323Z] [iam] checking project salesproposaltest for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-12-28T08:42:46.325Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/salesproposaltest:testIamPermissions [none]
+[debug] [2023-12-28T08:42:46.325Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/salesproposaltest:testIamPermissions x-goog-quota-user=projects/salesproposaltest
+[debug] [2023-12-28T08:42:46.325Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/salesproposaltest:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-12-28T08:42:47.866Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/salesproposaltest:testIamPermissions 200
+[debug] [2023-12-28T08:42:47.867Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/salesproposaltest:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-12-28T08:42:47.869Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/salesproposaltest [none]

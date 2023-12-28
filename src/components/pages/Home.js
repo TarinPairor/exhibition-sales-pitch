@@ -159,7 +159,11 @@ function Home() {
       .then((data) => data.json())
       .then((data) => {
         console.log(data);
-        set(data.choices[0].text.trim()); // Extract the first element in data.choices array
+        if (data.choices && data.choices[0]) {
+          set(data.choices[0].text.trim());
+        } else {
+          console.error("Invalid response format for feedback");
+        }
         setLoad(false);
       });
   }
