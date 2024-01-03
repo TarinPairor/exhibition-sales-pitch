@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import React from "react";
 import "./Pitch.css";
 import { API_KEY } from "../../API_KEY";
+import CopyToClipboardButton from "../CopyToClipboardButton";
+
 function Pitch() {
   const [text, setText] = useState("");
   const [pitch, setPitch] = useState("");
@@ -18,12 +20,9 @@ function Pitch() {
     function generatePitch() {
       return `Generate a sales pitch script with ${wordCount} words of a product utilizing the following information: ${text} 
       
-      .Additionally, to construct this pitch, I want you to utilize these key components:
-      Identify the problem.
-      State your value proposition.
-      Offer solutions.
-      Show social proof.
-
+      .Additionally, to construct this pitch, I want you to
+      identify the problem at hand then state your value proposition
+      before offering a solutions and ,finally, show social proof.
       `;
     }
 
@@ -120,8 +119,17 @@ function Pitch() {
               <CircularIndeterminate></CircularIndeterminate>
             </>
           ) : (
-            <>{pitch}</>
+            <div className="res-textarea">
+              <textarea
+                value={pitch}
+                onChange={(e) => setPitch(e.target.value)}
+                placeholder="Generated Pitch"
+                cols={50}
+                rows={10}
+              />
+            </div>
           )}
+          <CopyToClipboardButton text={pitch} />
         </div>
       </div>
     </div>

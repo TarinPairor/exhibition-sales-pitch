@@ -9,6 +9,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import CopyToClipboardButton from "../CopyToClipboardButton";
+import { useRef } from "react";
+import { useEffect } from "react";
 
 function Home() {
   const [businessName, setBusinessName] = useState("");
@@ -32,13 +34,31 @@ function Home() {
   const [solutionFB, setSolutionFB] = useState("");
   const [priceFB, setPriceFB] = useState("");
 
+  const sliderRef = useRef();
   const sliderSettings = {
     dots: true,
     infinite: false,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    swipe: false,
+    touchThreshold: 10,
   };
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowLeft") {
+      sliderRef.current.slickPrev();
+    } else if (e.key === "ArrowRight") {
+      sliderRef.current.slickNext();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []); // Add dependencies if needed
 
   function generateExecutiveSummary(businessName, exInfo, wordCount) {
     if (!businessName && !exInfo && !wordCount) {
@@ -62,18 +82,6 @@ function Home() {
     );
   }
 
-  function generateExecutiveSummaryFeedBack(exFB) {
-    if (!exFB) {
-      return "";
-    }
-    return (
-      executiveSummary +
-      `
-    ${exFB}
-    `
-    );
-  }
-
   function generateProposedSolution(
     solutionName,
     solutionInfo,
@@ -92,20 +100,6 @@ function Home() {
       , include this information about the solution: "${solutionInfo}" and finally, include the following features as bullet points: "${solutionFeatures}"`;
   }
 
-  function generateProposedSolutionFeedBack(solutionFB) {
-    if (!solutionFB) {
-      return "";
-    }
-    return (
-      proposedSolution +
-      `
-
-    Remake the above with the following feedback in mind.
-    ${solutionFB}
-    `
-    );
-  }
-
   function generatePriceAndBudget(
     priceInfo,
     priceWordCount,
@@ -119,23 +113,23 @@ function Home() {
        including this information about the solution: "${solutionInfo}" and include the following pricing details of the product "${priceInfo}"`;
   }
 
-  function generatePriceAndBudgetFeedBack(priceFB) {
-    if (!priceFB) {
+  function generateFeedBack(fb, res) {
+    if (!fb) {
       return "";
     }
     return (
-      priceAndBudget +
+      res +
       `
 
       Remake the above with the following feedback in mind.
-    ${priceFB}
+    ${fb}
     `
     );
   }
 
   async function callOpenAIAPI(prompt, set, setLoad) {
     if (!prompt) {
-      set("Input something");
+      set("Input something in the prompt otherwise you'll get nothing!");
       return;
     }
     console.log("Calling the OpenAI API");
@@ -213,7 +207,7 @@ function Home() {
           </p>
         </motion.div>
       </div>
-      <Slider {...sliderSettings}>
+      <Slider ref={sliderRef} {...sliderSettings}>
         <div className="slider-container">
           <div className="exec-summary-container">
             <div className="exec-summary-title">
@@ -265,7 +259,15 @@ function Home() {
                 <>
                   {executiveSummary !== "" && (
                     <>
-                      <h3>{executiveSummary}</h3>
+                      <div className="res-textarea">
+                        <textarea
+                          value={executiveSummary}
+                          onChange={(e) => setExecutiveSummary(e.target.value)}
+                          placeholder="Executive Summary Goes Here!"
+                          cols={50}
+                          rows={10}
+                        />
+                      </div>
                       <p>Word count: {executiveSummary.split(" ").length}</p>
                     </>
                   )}
@@ -284,7 +286,7 @@ function Home() {
               <Button
                 onClick={() => {
                   callOpenAIAPI(
-                    generateExecutiveSummaryFeedBack(exFB),
+                    generateFeedBack(exFB, executiveSummary),
                     setExecutiveSummary,
                     setExLoad
                   );
@@ -362,7 +364,15 @@ function Home() {
                 <>
                   {proposedSolution !== "" && (
                     <>
-                      <h3>{proposedSolution}</h3>
+                      <div className="res-textarea">
+                        <textarea
+                          value={proposedSolution}
+                          onChange={(e) => setProposedSolution(e.target.value)}
+                          placeholder="Proposed Solution Goes Here!"
+                          cols={50}
+                          rows={10}
+                        />
+                      </div>
                       <p>Word count: {proposedSolution.split(" ").length}</p>
                     </>
                   )}
@@ -381,7 +391,7 @@ function Home() {
               <Button
                 onClick={() => {
                   callOpenAIAPI(
-                    generateProposedSolutionFeedBack(solutionFB),
+                    generateFeedBack(solutionFB, proposedSolution),
                     setProposedSolution,
                     setSolutionLoad
                   );
@@ -442,7 +452,15 @@ function Home() {
                 <>
                   {priceAndBudget !== "" && (
                     <>
-                      <h3>{priceAndBudget}</h3>
+                      <div className="res-textarea">
+                        <textarea
+                          value={priceAndBudget}
+                          onChange={(e) => setPriceAndBudget(e.target.value)}
+                          placeholder="Executive Summary Goes Here!"
+                          cols={50}
+                          rows={10}
+                        />
+                      </div>
                       <p>Word count: {priceAndBudget.split(" ").length}</p>
                     </>
                   )}
@@ -461,7 +479,7 @@ function Home() {
               <Button
                 onClick={() => {
                   callOpenAIAPI(
-                    generatePriceAndBudgetFeedBack(priceFB),
+                    generateFeedBack(priceFB, priceAndBudget),
                     setPriceAndBudget,
                     setPriceLoad
                   );
