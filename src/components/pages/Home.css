@@ -138,6 +138,19 @@ h3 {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
+.exec-summary-word-count,
+.solution-word-count,
+.price-word-count {
+  flex-direction: column;
+}
+
+.exec-summary-word-count input,
+.solution-word-count input,
+.price-word-count input {
+  flex-direction: column;
+  margin: 10px;
+}
+
 [class$="-Button"] {
   margin: 10px auto; /* Auto margin for center alignment */
   background-color: #2ecc71;
@@ -192,4 +205,19 @@ textarea {
 
 [class$="-feedback-input"] {
   margin: 10px;
+}
+
+@media only screen and (max-width: 800px) {
+  .Home {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  .slider-container {
+    text-align: center;
+    scale: 0.95;
+    max-width: 600px;
+  }
 }

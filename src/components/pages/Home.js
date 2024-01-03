@@ -8,19 +8,20 @@ import { Button } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import CopyToClipboardButton from "../CopyToClipboardButton";
 
 function Home() {
   const [businessName, setBusinessName] = useState("");
   const [exInfo, setExInfo] = useState("");
   const [executiveSummary, setExecutiveSummary] = useState("");
-  const [exWordCount, setExWordCount] = useState("");
+  const [exWordCount, setExWordCount] = useState(0);
   const [solutionName, setSolutionName] = useState("");
   const [solutionInfo, setSolutionInfo] = useState("");
   const [solutionFeatures, setSolutionFeatures] = useState("");
-  const [solutionWordCount, setSolutionWordCount] = useState("");
+  const [solutionWordCount, setSolutionWordCount] = useState(0);
   const [proposedSolution, setProposedSolution] = useState("");
   const [priceInfo, setPriceInfo] = useState("");
-  const [priceWordCount, setPriceWordCount] = useState("");
+  const [priceWordCount, setPriceWordCount] = useState(0);
   const [priceAndBudget, setPriceAndBudget] = useState("");
 
   const [exLoad, setExLoad] = useState(false);
@@ -236,14 +237,12 @@ function Home() {
                 rows={8}
               />
             </div>
-            <div className="-exec-summary-word-count">
+            <div className="exec-summary-word-count">
               {/* Modify html textarea for word count */}
-              <textarea
-                type
+              Paste word count here!
+              <input
+                type="number"
                 onChange={(e) => setExWordCount(e.target.value)}
-                placeholder="Paste word count here!"
-                cols={45}
-                rows={1}
               />
             </div>
             <div className="exec-summary-Button">
@@ -294,6 +293,7 @@ function Home() {
                 Generate Feedback
               </Button>
             </div>
+            <CopyToClipboardButton text={executiveSummary} />
           </div>
         </div>
 
@@ -330,12 +330,11 @@ function Home() {
               />
             </div>
             <div className="solution-word-count">
-              {/* Modify html textarea for solutionWordCount */}
-              <textarea
+              {/* Modify html textarea for word count */}
+              Paste word count here!
+              <input
+                type="number"
                 onChange={(e) => setSolutionWordCount(e.target.value)}
-                placeholder="Paste word count here!"
-                cols={45}
-                rows={1}
               />
             </div>
             <div className="solution-Button">
@@ -391,6 +390,7 @@ function Home() {
                 Generate Feedback
               </Button>
             </div>
+            <CopyToClipboardButton text={proposedSolution} />
           </div>
         </div>
 
@@ -410,13 +410,13 @@ function Home() {
             </div>
             <div className="price-word-count">
               {/* Modify html textarea for price word count */}
-              <textarea
+              Paste word count here!
+              <input
+                type="number"
                 onChange={(e) => setPriceWordCount(e.target.value)}
-                placeholder="Paste pricing word count here!"
-                cols={45}
-                rows={1}
               />
             </div>
+
             <div className="price-Button">
               <Button
                 onClick={() =>
@@ -470,6 +470,7 @@ function Home() {
                 Generate Feedback
               </Button>
             </div>
+            <CopyToClipboardButton text={priceAndBudget} />
           </div>
         </div>
       </Slider>

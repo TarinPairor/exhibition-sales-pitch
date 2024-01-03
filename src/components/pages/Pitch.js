@@ -8,6 +8,7 @@ function Pitch() {
   const [text, setText] = useState("");
   const [pitch, setPitch] = useState("");
   const [load, setLoad] = useState(false);
+  const [wordCount, setWordCount] = useState(0);
   async function callOpenAIAPI() {
     if (text.length === 0) {
       setPitch("Input Something");
@@ -15,7 +16,7 @@ function Pitch() {
     }
 
     function generatePitch() {
-      return `Generate a sales pitch script of a product utilizing the following information: ${text} 
+      return `Generate a sales pitch script with ${wordCount} words of a product utilizing the following information: ${text} 
       
       .Additionally, to construct this pitch, I want you to utilize these key components:
       Identify the problem.
@@ -100,6 +101,18 @@ function Pitch() {
         </div>
         <div className="pitch-button">
           <button onClick={() => callOpenAIAPI()}>Get Pitch</button>
+        </div>
+        <div className="word-count">
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            placeholder="Enter Word count"
+            onChange={(e) => setWordCount(e.target.value)}
+          />
+          <div className="word-count-text">
+            <p>Word count: {pitch.split(" ").length}</p>
+          </div>
         </div>
         <div className="pitch-result">
           {load ? (

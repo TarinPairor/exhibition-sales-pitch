@@ -1,9 +1,7 @@
 /* Style for the container of the Pitch component */
 .pitch-container {
   display: contents;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  height: 10vh;
 }
 
 .pitch-title-wrapper {
@@ -33,9 +31,8 @@
 }
 
 /* Style for the textarea for word count */
-.pitch-word-count textarea {
+.wrapper textarea {
   width: 80%;
-  padding: 10px;
   margin-bottom: 10px;
   box-sizing: border-box;
 }
@@ -66,4 +63,22 @@
   font-size: 18px;
   line-height: 1.5;
   color: #fff;
+}
+
+.word-count {
+  padding: 20px;
+}
+
+.word-count-text {
+  font-weight: bold;
+}
+@media only screen and (max-width: 600px) {
+  .pitch-container {
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
 }
