@@ -52,6 +52,8 @@ function Home() {
     }
   };
 
+  //SLIDER CONTROL USING KEYS
+
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
 
@@ -59,6 +61,8 @@ function Home() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []); // Add dependencies if needed
+
+  // FUNCTIONS TO GENERATE PROMPTS
 
   function generateExecutiveSummary(businessName, exInfo, wordCount) {
     if (!businessName && !exInfo && !wordCount) {
@@ -127,7 +131,9 @@ function Home() {
     );
   }
 
-  async function callOpenAIAPI(prompt, set, setLoad) {
+  // CALL OPEN AI FUNCTION
+
+  async function callOpenAIAPIWithSetLoad(prompt, set, setLoad, wordCount) {
     if (!prompt) {
       set("Input something in the prompt otherwise you'll get nothing!");
       return;
@@ -140,7 +146,7 @@ function Home() {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
-      max_tokens: 1250,
+      max_tokens: 2000,
     };
 
     /*
@@ -168,11 +174,64 @@ function Home() {
       .then((data) => {
         console.log(data);
         if (data.choices && data.choices[0]) {
-          set(data.choices[0].message.content.trim());
+          const res = data.choices[0].message.content.trim();
+          const resLen = res.split(" ").length();
+          if (wordCount > 500) {
+            const resArray = res.split("\n");
+            const avgIncreaseInLen =
+              wordCount / resArray.length() - resLen / resArray.length();
+            const lengthenedArray = resArray.map((s) =>
+              returnOpenAIAPIPrompt(s + `:Make this ${avgIncreaseInLen} words`)
+            );
+            set(lengthenedArray.join("\n"));
+          } else {
+            set(data.choices[0].message.content.trim());
+          }
         } else {
           console.error(data.error);
         }
         setLoad(false);
+      });
+  }
+
+  async function returnOpenAIAPIPrompt(prompt) {
+    console.log("Calling the OpenAI API");
+    const APIBody = {
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
+      max_tokens: 2000,
+    };
+
+    /*
+    Old version
+    const APIBody = {
+      model: "text-davinci-003",
+      prompt: prompt, // input prompt here, other variables do not matter
+      temperature: 0,
+      max_tokens: 3000,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+    };
+    */
+
+    await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + API_KEY,
+      },
+      body: JSON.stringify(APIBody),
+    })
+      .then((data) => data.json())
+      .then((data) => {
+        console.log(data);
+        if (data.choices && data.choices[0]) {
+          return data.choices[0].message.content.trim();
+        } else {
+          console.error(data.error);
+        }
       });
   }
 
@@ -255,10 +314,11 @@ function Home() {
             <div className="exec-summary-Button">
               <Button
                 onClick={() =>
-                  callOpenAIAPI(
+                  callOpenAIAPIWithSetLoad(
                     generateExecutiveSummary(businessName, exInfo, exWordCount),
                     setExecutiveSummary,
-                    setExLoad
+                    setExLoad,
+                    exWordCount
                   )
                 }
               >
@@ -298,10 +358,11 @@ function Home() {
             <div className="exec-summary-feedback-Button">
               <Button
                 onClick={() => {
-                  callOpenAIAPI(
+                  callOpenAIAPIWithSetLoad(
                     generateFeedBack(exFB, executiveSummary),
                     setExecutiveSummary,
-                    setExLoad
+                    setExLoad,
+                    0
                   );
                 }}
               >
@@ -355,7 +416,7 @@ function Home() {
             <div className="solution-Button">
               <Button
                 onClick={() =>
-                  callOpenAIAPI(
+                  callOpenAIAPIWithSetLoad(
                     generateProposedSolution(
                       solutionName,
                       solutionInfo,
@@ -363,7 +424,8 @@ function Home() {
                       solutionWordCount
                     ),
                     setProposedSolution,
-                    setSolutionLoad
+                    setSolutionLoad,
+                    solutionWordCount
                   )
                 }
               >
@@ -403,10 +465,11 @@ function Home() {
             <div className="proposed-solution-feedback-Button">
               <Button
                 onClick={() => {
-                  callOpenAIAPI(
+                  callOpenAIAPIWithSetLoad(
                     generateFeedBack(solutionFB, proposedSolution),
                     setProposedSolution,
-                    setSolutionLoad
+                    setSolutionLoad,
+                    0
                   );
                 }}
               >
@@ -443,7 +506,7 @@ function Home() {
             <div className="price-Button">
               <Button
                 onClick={() =>
-                  callOpenAIAPI(
+                  callOpenAIAPIWithSetLoad(
                     generatePriceAndBudget(
                       priceInfo,
                       priceWordCount,
@@ -451,7 +514,8 @@ function Home() {
                       solutionInfo
                     ),
                     setPriceAndBudget,
-                    setPriceLoad
+                    setPriceLoad,
+                    priceWordCount
                   )
                 }
               >
@@ -491,10 +555,11 @@ function Home() {
             <div className="price-feedback-Button">
               <Button
                 onClick={() => {
-                  callOpenAIAPI(
+                  callOpenAIAPIWithSetLoad(
                     generateFeedBack(priceFB, priceAndBudget),
                     setPriceAndBudget,
-                    setPriceLoad
+                    setPriceLoad,
+                    0
                   );
                 }}
               >
