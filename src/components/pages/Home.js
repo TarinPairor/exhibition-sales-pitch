@@ -132,18 +132,31 @@ function Home() {
       set("Input something in the prompt otherwise you'll get nothing!");
       return;
     }
+
     console.log("Calling the OpenAI API");
     setLoad(true);
+
+    const APIBody = {
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: prompt }],
+      temperature: 0.7,
+      max_tokens: 1250,
+    };
+
+    /*
+    Old version
     const APIBody = {
       model: "text-davinci-003",
       prompt: prompt, // input prompt here, other variables do not matter
       temperature: 0,
-      max_tokens: 400,
+      max_tokens: 3000,
       top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
     };
-    await fetch("https://api.openai.com/v1/completions", {
+    */
+
+    await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -155,9 +168,9 @@ function Home() {
       .then((data) => {
         console.log(data);
         if (data.choices && data.choices[0]) {
-          set(data.choices[0].text.trim());
+          set(data.choices[0].message.content.trim());
         } else {
-          console.error("Invalid response format for feedback");
+          console.error(data.error);
         }
         setLoad(false);
       });
