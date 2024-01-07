@@ -175,15 +175,30 @@ function Home() {
         console.log(data);
         if (data.choices && data.choices[0]) {
           const res = data.choices[0].message.content.trim();
-          const resLen = res.split(" ").length();
+          const resLen = res.split(" ").length;
           if (wordCount > 500) {
-            const resArray = res.split("\n");
-            const avgIncreaseInLen =
-              wordCount / resArray.length() - resLen / resArray.length();
-            const lengthenedArray = resArray.map((s) =>
-              returnOpenAIAPIPrompt(s + `:Make this ${avgIncreaseInLen} words`)
+            console.log("Heavy load in duty");
+            const resArray = res.split("\n").filter((x) => x.length > 0);
+            const avgIncreaseInLen = Math.ceil(
+              (wordCount - resLen) / resArray.length
             );
-            set(lengthenedArray.join("\n"));
+            const recursivePrompt = (s) =>
+              `${s}
+            
+            :Increase the length of this paragraph to ${avgIncreaseInLen} words`;
+
+            const lengthenedArrayPromises = resArray.map(async (s) => {
+              const result = await returnOpenAIAPIPrompt(recursivePrompt(s));
+              return result;
+            });
+
+            Promise.all(lengthenedArrayPromises)
+              .then((lengthenedArray) => {
+                set(lengthenedArray.join("\n"));
+              })
+              .catch((error) => {
+                console.error("Error in Promise.all:", error);
+              });
           } else {
             set(data.choices[0].message.content.trim());
           }
@@ -200,7 +215,7 @@ function Home() {
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: prompt }],
       temperature: 0.7,
-      max_tokens: 2000,
+      max_tokens: 1250,
     };
 
     /*
@@ -216,7 +231,8 @@ function Home() {
     };
     */
 
-    await fetch("https://api.openai.com/v1/chat/completions", {
+    // Explicitly return the promise
+    return fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -226,11 +242,12 @@ function Home() {
     })
       .then((data) => data.json())
       .then((data) => {
-        console.log(data);
+        console.log(data.choices[0].message.content.trim());
         if (data.choices && data.choices[0]) {
           return data.choices[0].message.content.trim();
         } else {
           console.error(data.error);
+          return "Something went wrong but at least I was returned";
         }
       });
   }
