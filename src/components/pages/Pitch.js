@@ -102,13 +102,8 @@ function Pitch() {
           <button onClick={() => callOpenAIAPI()}>Get Pitch</button>
         </div>
         <div className="word-count">
-          <input
-            type="number"
-            id="quantity"
-            name="quantity"
-            placeholder="Enter Word count"
-            onChange={(e) => setWordCount(e.target.value)}
-          />
+          Paste word count here!
+          <input type="number" onChange={(e) => setWordCount(e.target.value)} />
           <div className="word-count-text">
             <p>Word count: {pitch.split(" ").length}</p>
           </div>

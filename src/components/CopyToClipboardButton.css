@@ -25,6 +25,7 @@
 
 .copy-to-clipboard-button button:hover {
   background-color: #45a049;
+  transform: scale(1.05);
 }
 
 .copy-to-clipboard-button button svg {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import CircularIndeterminate from "../Circular";
 import "./Home.css";
 import { motion } from "framer-motion";
@@ -11,6 +11,11 @@ import Slider from "react-slick";
 import CopyToClipboardButton from "../CopyToClipboardButton";
 import { useRef } from "react";
 import { useEffect } from "react";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 function Home() {
   //EXECUTIVE SUMMARY
@@ -39,6 +44,40 @@ function Home() {
   const [solutionFB, setSolutionFB] = useState("");
   const [priceFB, setPriceFB] = useState("");
 
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  function AlertDialog({ dialogTitle, dialogContent }) {
+    return (
+      <React.Fragment>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{dialogTitle}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {dialogContent}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} autoFocus>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </React.Fragment>
+    );
+  }
+
   //SLIDER SETTINGS
   const sliderRef = useRef();
   const sliderSettings = {
@@ -52,7 +91,7 @@ function Home() {
   };
 
   //SLIDER CONTROL USING KEYS
-
+  /*
   const handleKeyDown = (e) => {
     if (e.key === "ArrowLeft") {
       sliderRef.current.slickPrev();
@@ -68,7 +107,7 @@ function Home() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
-
+*/
   // FUNCTIONS TO GENERATE PROMPTS
 
   function generateExecutiveSummary(businessName, exInfo, wordCount) {
@@ -88,7 +127,7 @@ function Home() {
       (exInfo === ""
         ? `, include the following information about the company: ${exInfo}`
         : " " + exInfo) +
-      `and finally, write it with these components in mind` +
+      `do not include the title and finally, write it with these components in mind` +
       executiveSummaryTips
     );
   }
@@ -108,7 +147,9 @@ function Home() {
       return "";
     }
     return `generate me a proposed solution ${solutionWordCount} words long for sales proposal that utilizes a solution by the name of: "${solutionName}"
-      , include this information about the solution: "${solutionInfo}" and finally, include the following features as bullet points: "${solutionFeatures}"`;
+      , include this information about the solution: "${solutionInfo}" 
+      
+      ,do not include the title and finally, include the following features as bullet points: "${solutionFeatures}"`;
   }
 
   function generatePriceAndBudget(
@@ -121,7 +162,9 @@ function Home() {
       return "";
     }
     return `generate me proper "pricing and budget" information ${priceWordCount} words long for sales proposal of the solution by the name of: "${solutionName}"
-       including this information about the solution: "${solutionInfo}" and include the following pricing details of the product "${priceInfo}"`;
+       including this information about the solution: "${solutionInfo}" 
+       
+       ,do not include the title, and include the following pricing details of the product "${priceInfo}"`;
   }
 
   function generateFeedBack(fb, res) {
@@ -305,6 +348,17 @@ function Home() {
       </div>
       <Slider ref={sliderRef} {...sliderSettings}>
         <div className="slider-container">
+          <motion.div
+            className="heavy-loader-header"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <h6>
+              Deploy our "Heavy Load" prompt for responses exceeding 500 words.
+              It may take a while...
+            </h6>
+          </motion.div>
           <div className="exec-summary-container">
             <div className="exec-summary-title">
               <h2>Executive Summary</h2>
@@ -380,14 +434,29 @@ function Home() {
               ></textarea>
             </div>
             <div className="exec-summary-feedback-Button">
+              {open && (
+                <div className="alert">
+                  <AlertDialog
+                    dialogTitle="Feedback Error"
+                    dialogContent="We do not support feedback for heavy duty prompts over 500 words."
+                  />
+                </div>
+              )}
               <Button
                 onClick={() => {
-                  callOpenAIAPIWithSetLoad(
-                    generateFeedBack(exFB, executiveSummary),
-                    setExecutiveSummary,
-                    setExLoad,
-                    0
-                  );
+                  if (
+                    exWordCount > 500 ||
+                    executiveSummary.split(" ").length > 500
+                  ) {
+                    handleClickOpen();
+                  } else {
+                    callOpenAIAPIWithSetLoad(
+                      generateFeedBack(exFB, executiveSummary),
+                      setExecutiveSummary,
+                      setExLoad,
+                      0
+                    );
+                  }
                 }}
               >
                 Generate Feedback
@@ -489,12 +558,19 @@ function Home() {
             <div className="proposed-solution-feedback-Button">
               <Button
                 onClick={() => {
-                  callOpenAIAPIWithSetLoad(
-                    generateFeedBack(solutionFB, proposedSolution),
-                    setProposedSolution,
-                    setSolutionLoad,
-                    0
-                  );
+                  if (
+                    solutionWordCount > 500 ||
+                    proposedSolution.split(" ").length > 500
+                  ) {
+                    handleClickOpen();
+                  } else {
+                    callOpenAIAPIWithSetLoad(
+                      generateFeedBack(solutionFB, proposedSolution),
+                      setProposedSolution,
+                      setSolutionLoad,
+                      0
+                    );
+                  }
                 }}
               >
                 Generate Feedback
@@ -579,12 +655,19 @@ function Home() {
             <div className="price-feedback-Button">
               <Button
                 onClick={() => {
-                  callOpenAIAPIWithSetLoad(
-                    generateFeedBack(priceFB, priceAndBudget),
-                    setPriceAndBudget,
-                    setPriceLoad,
-                    0
-                  );
+                  if (
+                    priceWordCount > 500 ||
+                    priceAndBudget.split(" ").length > 500
+                  ) {
+                    handleClickOpen();
+                  } else {
+                    callOpenAIAPIWithSetLoad(
+                      generateFeedBack(priceFB, priceAndBudget),
+                      setPriceAndBudget,
+                      setPriceLoad,
+                      0
+                    );
+                  }
                 }}
               >
                 Generate Feedback

@@ -54,7 +54,7 @@ function TxtDownloadButton({
           )
         }
       >
-        Download Sales Proposal as a Txt
+        Download Sales Proposal as a .txt file
       </button>
     </div>
   );
