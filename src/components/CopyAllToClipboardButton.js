@@ -1,4 +1,5 @@
 import React from "react";
+import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 
 function CopyAllToClipboardButton({
   executiveSummary,
@@ -24,6 +25,7 @@ ${priceAndBudget}
         }}
       >
         Copy to Clipboard
+        <ContentPasteIcon></ContentPasteIcon>
       </button>
     </div>
   );

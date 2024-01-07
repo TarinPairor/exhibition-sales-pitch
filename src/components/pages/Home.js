@@ -13,10 +13,13 @@ import { useRef } from "react";
 import { useEffect } from "react";
 
 function Home() {
+  //EXECUTIVE SUMMARY
   const [businessName, setBusinessName] = useState("");
   const [exInfo, setExInfo] = useState("");
   const [executiveSummary, setExecutiveSummary] = useState("");
   const [exWordCount, setExWordCount] = useState(0);
+
+  //PROPOSED SOLUTION
   const [solutionName, setSolutionName] = useState("");
   const [solutionInfo, setSolutionInfo] = useState("");
   const [solutionFeatures, setSolutionFeatures] = useState("");
@@ -24,16 +27,19 @@ function Home() {
   const [proposedSolution, setProposedSolution] = useState("");
   const [priceInfo, setPriceInfo] = useState("");
   const [priceWordCount, setPriceWordCount] = useState(0);
-  const [priceAndBudget, setPriceAndBudget] = useState("");
 
+  //PRICE AND BUDGET
+  const [priceAndBudget, setPriceAndBudget] = useState("");
   const [exLoad, setExLoad] = useState(false);
   const [solutionLoad, setSolutionLoad] = useState(false);
   const [priceLoad, setPriceLoad] = useState(false);
 
+  //FEEDBACK
   const [exFB, setExFB] = useState("");
   const [solutionFB, setSolutionFB] = useState("");
   const [priceFB, setPriceFB] = useState("");
 
+  //SLIDER SETTINGS
   const sliderRef = useRef();
   const sliderSettings = {
     dots: true,
@@ -44,6 +50,9 @@ function Home() {
     swipe: false,
     touchThreshold: 10,
   };
+
+  //SLIDER CONTROL USING KEYS
+
   const handleKeyDown = (e) => {
     if (e.key === "ArrowLeft") {
       sliderRef.current.slickPrev();
@@ -52,15 +61,13 @@ function Home() {
     }
   };
 
-  //SLIDER CONTROL USING KEYS
-
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []); // Add dependencies if needed
+  }, []);
 
   // FUNCTIONS TO GENERATE PROMPTS
 
@@ -587,12 +594,15 @@ function Home() {
           </div>
         </div>
       </Slider>
-
-      <ResultButtonsWrapper
-        executiveSummary={executiveSummary}
-        proposedSolution={proposedSolution}
-        priceAndBudget={priceAndBudget}
-      />
+      <div className="under-slider-container">
+        <div className="result-button-wrapper">
+          <ResultButtonsWrapper
+            executiveSummary={executiveSummary}
+            proposedSolution={proposedSolution}
+            priceAndBudget={priceAndBudget}
+          />
+        </div>
+      </div>
     </div>
   );
 }

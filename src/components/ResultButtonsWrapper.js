@@ -1,8 +1,7 @@
-// ResultButtonsWrapper.js
-
 import React, { useState } from "react";
 import CopyAllToClipboardButton from "./CopyAllToClipboardButton";
-import DownloadButton from "./DownloadButton";
+import TxtDownloadButton from "./TxtDownloadButton";
+import ZipDownloadButton from "./ZipDownloadButton";
 import "./ResultButtonsWrapper.css";
 import MenuIcon from "@mui/icons-material/Menu";
 
@@ -31,7 +30,12 @@ const ResultButtonsWrapper = ({
             proposedSolution={proposedSolution}
             priceAndBudget={priceAndBudget}
           />
-          <DownloadButton
+          <TxtDownloadButton
+            executiveSummary={executiveSummary}
+            proposedSolution={proposedSolution}
+            priceAndBudget={priceAndBudget}
+          />
+          <ZipDownloadButton
             executiveSummary={executiveSummary}
             proposedSolution={proposedSolution}
             priceAndBudget={priceAndBudget}

@@ -38,7 +38,7 @@ ${priceAndBudget}
   document.body.removeChild(link);
 }
 
-function DownloadButton({
+function TxtDownloadButton({
   executiveSummary,
   proposedSolution,
   priceAndBudget,
@@ -54,10 +54,10 @@ function DownloadButton({
           )
         }
       >
-        Download Sales Proposal
+        Download Sales Proposal as a Txt
       </button>
     </div>
   );
 }
 
-export default DownloadButton;
+export default TxtDownloadButton;

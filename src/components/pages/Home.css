@@ -3,11 +3,11 @@ body {
   background-color: #f0f0f0;
   margin: 0;
   padding: 0;
+  background: rgb(4, 102, 168);
   background: radial-gradient(
     circle,
-    rgb(23, 52, 130) 0%,
-    rgb(55, 85, 184) 3%,
-    rgb(23, 44, 126) 100%
+    rgba(4, 102, 168, 1) 0%,
+    rgba(21, 6, 153, 1) 100%
   );
 }
 
@@ -64,7 +64,6 @@ body {
   );
   background-size: 400% 400%;
   color: transparent;
-  -webkit-background-clip: text;
   display: inline-block;
   animation: glitter 20s infinite linear;
   font-size: 2em; /* Adjust the font size as needed */
@@ -208,6 +207,14 @@ textarea {
 
 [class$="-feedback-input"] {
   margin: 10px;
+}
+
+.under-slider-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 30px;
 }
 
 @media only screen and (max-width: 800px) {
