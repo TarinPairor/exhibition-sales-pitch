@@ -1,0 +1,265 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  background: rgb(4, 102, 168);
+  background: radial-gradient(
+    circle,
+    rgba(4, 102, 168, 1) 0%,
+    rgba(21, 6, 153, 1) 100%
+  );
+  background-image: url(/src/img/tech-stock.jpg);
+}
+
+.Home {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 150px;
+  border-radius: 8px;
+}
+
+.heavy-loader-header h6 {
+  color: white;
+  font-weight: bolder;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.alert {
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  z-index: 1000; /* Set a high z-index to make sure it stays on top */
+}
+
+.slider-container {
+  text-align: center;
+}
+
+.home-title-wrapper {
+  text-align: center;
+  margin: 50px auto; /* Adjust the margin for spacing from the top */
+  margin-top: -50px;
+}
+
+.home-title {
+  position: relative;
+}
+
+.home-title-desc {
+  color: #fff; /* Set the text color to white */
+  font-weight: bold; /* Add font weight to make it bold */
+  margin-top: 20px; /* Adjust the margin from the title */
+}
+
+.home-title-desc p {
+  margin: 0; /* Remove default margin for the paragraph */
+  font-weight: bolder;
+  font-family: "Courier New", Courier, monospace;
+}
+
+@keyframes glitter {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 400% 400%;
+  }
+}
+
+.glitter-text {
+  background-image: linear-gradient(
+    45deg,
+    rgb(68, 153, 219),
+    rgb(62, 205, 230),
+    #06f,
+    rgb(61, 243, 219)
+  );
+  background-size: 400% 400%;
+  color: transparent;
+  -webkit-background-clip: text;
+  display: inline-block;
+  animation: glitter 20s infinite linear;
+  font-size: 2em; /* Adjust the font size as needed */
+}
+
+[class$="-title"] {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: black;
+  text-align: center;
+}
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+textarea:hover {
+  border: 1px solid #333;
+}
+
+Button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+Button:hover {
+  background-color: #45a049;
+}
+
+h3 {
+  margin-top: 20px;
+  color: #333;
+}
+
+/* Fancy Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 1s ease;
+}
+
+/* Tech Exhibition Theme */
+.exec-summary-container,
+.proposed-solution-container,
+.price-container {
+  margin-right: 10px;
+  background-color: #3498db;
+  color: #fff;
+  padding: 60px;
+  border-radius: 60px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.exec-summary-word-count,
+.solution-word-count,
+.price-word-count {
+  flex-direction: column;
+}
+
+.exec-summary-word-count input,
+.solution-word-count input,
+.price-word-count input {
+  flex-direction: column;
+  margin: 10px;
+}
+
+[class$="-Button"] {
+  margin: 10px auto; /* Auto margin for center alignment */
+  background-color: #2ecc71;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect */
+[class$="-Button"]:hover {
+  background-color: #27ae60;
+  transform: scale(1.05);
+}
+
+textarea {
+  background-color: #ecf0f1;
+  color: #333;
+}
+
+[class$="-result"] {
+  /* Your specific styles for elements ending with -result */
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin-top: 10px;
+  padding: 50px;
+  border: 1px solid #ccc;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+}
+
+.copy-to-clipboard-Button {
+  display: grid;
+  color: transparent;
+}
+
+.exec-summary-Button,
+.solution-Button,
+.price-Button,
+.link-Button {
+  text-align: center;
+}
+
+.exec-summary-feedback-Button,
+.proposed-solution-feedback-Button,
+.price-feedback-Button {
+  text-align: center;
+}
+
+[class$="-feedback-input"] {
+  margin: 10px;
+}
+
+.under-slider-container {
+  background-color: rgb(85, 133, 245);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.slick-track {
+  height: 1020px;
+}
+
+@media only screen and (max-width: 800px) {
+  .Home {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  .slider-container {
+    text-align: center;
+    scale: 0.95;
+    max-width: 600px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  textarea {
+    font-size: 10px; /* Adjust the font size as needed */
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  textarea {
+    font-size: 7px; /* Adjust the font size as needed */
+  }
+}

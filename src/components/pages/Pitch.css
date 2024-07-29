@@ -1,0 +1,92 @@
+/* Style for the container of the Pitch component */
+.pitch-container {
+  display: contents;
+  height: 10vh;
+}
+
+.pitch-title-wrapper {
+  text-align: center;
+  margin: 50px auto; /* Adjust the margin for spacing from the top */
+}
+
+.pitch-title {
+  position: relative;
+  color: white;
+}
+
+.pitch-title-desc {
+  color: #fff; /* Set the text color to white */
+  font-weight: bold; /* Add font weight to make it bold */
+  margin-top: 20px; /* Adjust the margin from the title */
+}
+
+.pitch-title-desc p {
+  margin: 0; /* Remove default margin for the paragraph */
+  font-weight: bolder;
+  font-family: "Courier New", Courier, monospace;
+}
+/* Style for the wrapper inside the Pitch container */
+.wrapper {
+  text-align: center;
+  margin-top: 20px; /* Adjust the margin from the title */
+}
+
+/* Style for the textarea for word count */
+.wrapper textarea {
+  width: 80%;
+  margin: 10px;
+  box-sizing: border-box;
+}
+
+input {
+  margin: 10px;
+}
+
+/* Style for the button */
+.pitch-button button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.pitch-button button:hover {
+  background-color: #45a049;
+}
+
+/* Style for the result */
+.pitch-result {
+  width: 50;
+  margin-top: 20px;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+.word-count {
+  padding: 20px;
+  color: white;
+  margin: 10px;
+}
+
+.word-count-text {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 600px) {
+  .pitch-container {
+    flex-wrap: wrap;
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+}

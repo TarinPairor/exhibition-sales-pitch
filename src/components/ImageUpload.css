@@ -1,0 +1,49 @@
+.container {
+  width: 300px;
+  margin: auto;
+}
+
+.form {
+  display: grid;
+  flex-direction: row;
+}
+
+input {
+  border: 1px solid black;
+  margin-bottom: 10px;
+  padding: 5px;
+  color: black;
+  font-weight: bolder;
+}
+
+.images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1px;
+}
+
+img {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.image {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.delete-button {
+  position: absolute;
+  top: 0px;
+  right: 5px;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  color: red;
+  scale: 1.1;
+}
